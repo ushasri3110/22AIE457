@@ -1,0 +1,32 @@
+.w-15 {
+    width: 15%;
+}
+.w-60{
+    width: 60%;
+}
+.h-15 {
+    height: 15%;
+}
+.text-10{
+    font-size: 10px;
+}
+.bg-cyan-950{
+    background-color: oklch(30.2% .056 229.695);
+}
+.text-cyan-950{
+    color: oklch(30.2% .056 229.695);
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.hero-section {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url("https://i.ibb.co/XyFt845/Form-Image.png");
+    height: 88vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}

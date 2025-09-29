@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock%}
+{% block body %}
+<div>
+<div class="d-flex justify-content-between align-items-center bg-cyan-950">
+    <div class="d-flex align-items-center gap-5">
+        <div class="w-15 h-15">
+            <img src="https://i.ibb.co/kqX6J8W/freepik-background-27962.png" alt="CommUnity Logo" height="80px"
+                width="80px" />
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center text-light">
+            <h1 class="fs-2 fw-bold">CommUnity</h1>
+            <p class="text-10">Seamless Community Interaction and Management</p>
+        </div>
+    </div>
+    <div class="d-flex text-light">
+        <div class="px-5 cursor-pointer">Home</div>
+        <div class="px-5 cursor-pointer">About Us</div>
+        <div class="px-5 cursor-pointer">Contact Us</div>
+    </div>
+</div>
+<div class="hero-section d-flex align-items-center justify-content-center">
+    <div class="w-60 d-flex justify-content-center align-items-center h-100 flex-column">
+        <p class="text-center">Welcome to Community, the ultimate platform designed to streamline housing society management and 
+                foster community connections. Whether you're a resident, administrator, or non-resident, Community brings 
+                convenience to your fingertips with a comprehensive set of features tailored for everyone.</p>
+               <button class="px-5 py-2 mt-3 rounded-5 text-light bg-cyan-950 fw-bold">Get Started</button>
+    </div>
+</div>
+<div class="bg-cyan-950 w-100 d-flex flex-column text-light justify-content-center align-items-center p-3 gap-3">
+    <div>community.com</div>
+    <div class="d-flex flex-row gap-2">
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-facebook-f"></i>
+        <i class="fa-brands fa-x-twitter"></i>
+        <i class="fa-brands fa-linkedin-in"></i>
+    </div>
+    <div>
+        Copyright &copy; 2025 All Rights Reserved
+    </div>
+</div>
+</div>
+{% endblock %}
