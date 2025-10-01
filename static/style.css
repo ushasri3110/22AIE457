@@ -13,6 +13,9 @@
 .bg-cyan-950{
     background-color: oklch(30.2% .056 229.695);
 }
+.bg-slate-200{
+    background-color: oklch(92.9% 0.013 255.508);
+}
 .text-cyan-950{
     color: oklch(30.2% .056 229.695);
 }

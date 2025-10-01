@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+{% block title %}Login{% endblock%} 
+{% block body %}
+<div class="d-flex vh-100">
+  <div class="w-50">
+    <img src="https://i.ibb.co/XyFt845/Form-Image.png" alt="Form-Image" border="0" class="vh-100 w-100" />
+  </div>
+  <div class="w-50 bg-slate-200">
+    <div class="d-flex justify-content-center gap-2">
+        <div>
+            <img src='https://i.ibb.co/8MnzPDm/freepik-background-85678.png' alt="Logo" height="80px" width="80px"/>
+        </div>
+        <div class="d-flex flex-column align-items-center text-cyan-950">
+            <div class="fs-2 fw-bold">CommUnity</div>
+            <div class="text-10">Seamless Community Interaction and Management</div>
+        </div>
+    </div>
+    <div>
+      {% block form %}{% endblock form %}
+    </div>
+  </div>
+</div>
+{% endblock %}
