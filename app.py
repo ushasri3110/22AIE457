@@ -25,6 +25,12 @@ class Complaint(db.Model):
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(50), default="open") 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+class Notice(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    admin_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
 # Home page
 @app.route("/")
@@ -65,6 +71,33 @@ def signup():
 
     return render_template("signup.html")
 
+@app.route("/notices", methods=["GET", "POST"])
+def notices():
+    if "user_id" not in session:
+        flash("Please log in first.", "warning")
+        return redirect(url_for("login"))
+
+    role = session["user_role"]
+
+    # Admin: can post new notices
+    if role == "admin":
+        if request.method == "POST":
+            title = request.form["title"]
+            message = request.form["message"]
+            new_notice = Notice(title=title, message=message, admin_id=session["user_id"])
+            db.session.add(new_notice)
+            db.session.commit()
+            flash("Notice posted successfully!", "success")
+            return redirect(url_for("notices"))
+
+        notices = Notice.query.order_by(Notice.created_at.desc()).all()
+        return render_template("notices_admin.html", notices=notices)
+
+    # Resident: can only view notices
+    else:
+        notices = Notice.query.order_by(Notice.created_at.desc()).all()
+        return render_template("notices_resident.html", notices=notices)
+    
 # Login Route
 @app.route("/login", methods=["GET", "POST"])
 def login():

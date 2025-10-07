@@ -1,0 +1,23 @@
+
+{% extends "header.html" %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center mb-4 text-cyan-950 fw-bold">Community Notices</h2>
+
+  <div class="row">
+    {% for notice in notices %}
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm border-info">
+          <div class="card-body">
+            <h5 class="card-title text-info">{{ notice.title }}</h5>
+            <p class="card-text">{{ notice.message }}</p>
+            <p class="text-muted small">Posted on {{ notice.created_at.strftime('%d %B %Y, %I:%M %p') }}</p>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-muted text-center">No notices available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
