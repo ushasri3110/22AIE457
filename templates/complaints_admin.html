@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+{% block body %}
+<div class="container mt-4">
+  <h3>All Complaints</h3>
+  <div class="row mt-3">
+    {% for complaint in complaints %}
+      <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ complaint.title }} <span class="badge bg-{{ 'success' if complaint.status=='closed' else 'warning' }}">{{ complaint.status }}</span></h5>
+            <p class="card-text">{{ complaint.description }}</p>
+            <p class="small text-muted">Submitted by User ID: {{ complaint.user_id }} on {{ complaint.created_at.strftime('%d %b %Y, %H:%M') }}</p>
+            {% if complaint.status == 'open' %}
+              <a href="{{ url_for('close_complaint', id=complaint.id) }}" class="btn btn-danger btn-sm">Close Complaint</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p>No complaints found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

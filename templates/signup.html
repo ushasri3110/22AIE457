@@ -1,27 +1,45 @@
 {% extends "registration.html" %}
 {% block form %}
-<form class="d-flex flex-column align-items-center justify-content-center text-cyan-950" style="height: 75vh;" >
+<form class="d-flex flex-column align-items-center justify-content-center text-cyan-950" 
+      style="height: 85vh;" method="POST" action="{{ url_for('signup') }}">
+
   <div class="mb-3 w-50">
-        <label for="name" class="form-label">Name</label>
-        <input type="email" class="form-control" id="name" placeholder="Enter Your Name">
-    </div>  
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter Your Name" name="name" required>
+  </div>  
+
   <div class="mb-3 w-50">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
-    </div>
-    <div class="mb-3 w-50">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Enter Your Password">
-    </div>
-    <div class="mb-3 w-50">
-        <label for="confirm-password" class="form-label">Confirm Password</label>
-        <input type="password" id="confirm-password" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Re-enter Your Password">
-    </div>
-    <div class="mb-3 w-25">
-        <button class="px-5 py-2 mt-3 rounded-5 text-light bg-cyan-950 fw-bold">Signup</button>
-    </div>
-    <div class="mb-3 w-50 text-center">
-        Already have an account? <a href="login">login</a>
-    </div>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter Your Email" name="email" required>
+  </div>
+
+  <div class="mb-3 w-50">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" class="form-control" placeholder="Enter Your Password" name="password" required>
+  </div>
+
+  <div class="mb-3 w-50">
+      <label for="confirm-password" class="form-label">Confirm Password</label>
+      <input type="password" id="confirm-password" class="form-control" placeholder="Re-enter Your Password" name="confirm-password" required>
+  </div>
+
+  <!-- Role selection -->
+  <div class="mb-3 w-50">
+      <label for="role" class="form-label">Role</label>
+      <select id="role" name="role" class="form-select">
+          <option value="resident" selected>Resident</option>
+          <option value="admin">Admin</option>
+      </select>
+      <small class="text-muted">Admins should generally be added manually.</small>
+  </div>
+
+  <div class="mb-3 w-25">
+      <button type="submit" class="px-5 py-2 mt-3 rounded-5 text-light bg-cyan-950 fw-bold">Signup</button>
+  </div>
+
+  <div class="mb-3 w-50 text-center">
+      Already have an account? <a href="{{ url_for('login') }}">Login</a>
+  </div>
+
 </form>
 {% endblock %}

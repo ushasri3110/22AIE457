@@ -1,19 +1,24 @@
 {% extends "registration.html" %}
 {% block form %}
-<form class="d-flex flex-column align-items-center justify-content-center" style="height: 75vh;" >
+<form class="d-flex flex-column align-items-center justify-content-center" 
+      style="height: 75vh;" method="POST" action="{{ url_for('login') }}">
+    
     <div class="mb-3 w-50">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
     </div>
+
     <div class="mb-3 w-50">
         <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" class="form-control" aria-describedby="passwordHelpBlock" placeholder="Enter Your Password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="Enter Your Password" required>
     </div>
+
     <div class="mb-3 w-25">
-        <button class="px-5 py-2 mt-3 rounded-5 text-light bg-cyan-950 fw-bold">Login</button>
+        <button type="submit" class="px-5 py-2 mt-3 rounded-5 text-light bg-cyan-950 fw-bold border-0">Login</button>
     </div>
+
     <div class="mb-3 w-50 text-center">
-        Don't have an account? <a href="signup">signup</a>
+        Don't have an account? <a href="{{ url_for('signup') }}">Signup</a>
     </div>
 </form>
 {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "header.html" %}
+{% block body %}
+<div class="container-fluid d-flex gap-4" style="height: 85vh; padding-top:20px;">
+  
+  <!-- Left: Complaint Form -->
+  <div class="w-50 bg-light p-4 shadow rounded">
+    <h4>Submit a Complaint</h4>
+    <form method="POST" action="{{ url_for('complaints') }}">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" rows="5" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Complaint</button>
+    </form>
+  </div>
+
+  <!-- Right: Display User's Complaints -->
+  <div class="w-50 bg-light p-4 shadow rounded">
+    <h4>My Complaints</h4>
+    {% for complaint in complaints %}
+      <div class="border p-3 mb-3 rounded">
+        <h5>{{ complaint.title }} <span class="badge bg-{{ 'success' if complaint.status=='closed' else 'warning' }}">{{ complaint.status }}</span></h5>
+        <p>{{ complaint.description }}</p>
+        <small class="text-muted">{{ complaint.created_at.strftime('%d %b %Y, %H:%M') }}</small>
+      </div>
+    {% else %}
+      <p>No complaints submitted yet.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}
