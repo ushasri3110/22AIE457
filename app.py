@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.secret_key = "ushasri3110"
@@ -9,6 +11,7 @@ app.secret_key = "ushasri3110"
 # Database Configuration
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["UPLOAD_FOLDER"] = "static/uploads"
 db = SQLAlchemy(app)
 
 #Models
@@ -31,7 +34,13 @@ class Notice(db.Model):
     message = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     admin_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    image_path = db.Column(db.String(200), nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    
 # Home page
 @app.route("/")
 def home():
@@ -71,6 +80,37 @@ def signup():
 
     return render_template("signup.html")
 
+# Events Route
+@app.route("/events", methods=["GET", "POST"])
+def events():
+    if "user_id" not in session:
+        flash("Please log in first.", "warning")
+        return redirect(url_for("login"))
+
+    role = session.get("user_role")
+
+    if request.method == "POST" and role == "admin":
+        title = request.form["title"]
+        description = request.form["description"]
+        image = request.files.get("image")
+
+        image_path = None
+        if image and image.filename != "":
+            filename = secure_filename(image.filename)
+            save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            image.save(save_path)
+            image_path = filename 
+
+        new_event = Event(title=title, description=description, image_path=image_path)
+        db.session.add(new_event)
+        db.session.commit()
+        flash("Event added successfully!", "success")
+        return redirect(url_for("events"))
+
+    events = Event.query.order_by(Event.created_at.desc()).all()
+    return render_template("events.html", events=events, role=role)
+
+#Notices Route
 @app.route("/notices", methods=["GET", "POST"])
 def notices():
     if "user_id" not in session:
