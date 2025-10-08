@@ -78,5 +78,19 @@
     {% endfor %}
   </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#eventImage').change(function(){
+        const file = this.files[0];
+        if (file){
+            let reader = new FileReader();
+            reader.onload = function(e){
+                $('#imagePreview').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+});
+</script>
 {% endblock %}
